@@ -79,7 +79,7 @@ const ChatItem = ({
         window.addEventListener("keydown", handleKeyDown)
 
         return () => window.removeEventListener("keydown", handleKeyDown)
-    })
+    },[])
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -110,7 +110,7 @@ const ChatItem = ({
         form.reset({
             content
         })
-    }, [content])
+    }, [content,form])
 
     const isAdmin = currentMember.role === MemberRole.ADMIN
     const isModerator = currentMember.role === MemberRole.MODERATOR
