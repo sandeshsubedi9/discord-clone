@@ -18,14 +18,14 @@ const roleIconMap = {
     [MemberRole.ADMIN]: <ShieldAlert className='mr-2 h-4 w-4 text-red-500' />
 }
 
-const ServerMember = ({member,server}: ServerMemberProps) => {
+const ServerMember = ({member}: ServerMemberProps) => {
     const params = useParams()
     const router = useRouter()
     
     const icon = roleIconMap[member.role]
 
     const onClick = () => {
-        router.push(`/servers/${params.serverId}/conversations/${member.id}`)
+        router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
     }
 
   return (

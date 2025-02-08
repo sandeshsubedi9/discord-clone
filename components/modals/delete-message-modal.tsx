@@ -13,7 +13,6 @@ import { useModal } from '@/hooks/use-modal-store'
 import { Button } from '../ui/button'
 import { useState } from 'react'
 import axios from 'axios'
-import { useRouter } from 'next/navigation'
 import qs from 'query-string'
 
 const DeleteMessageModal = () => {
