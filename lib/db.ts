@@ -15,22 +15,13 @@
 
 // if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = db;
 
-
 import { PrismaClient } from '@prisma/client';
 
-declare global {
-    // Extending the global interface to include the `prisma` property
-    namespace NodeJS {
-        interface Global {
-            prisma: PrismaClient;
-        }
-    }
-}
-
-// Assigning the PrismaClient instance to the global object
-const globalForPrisma = global as typeof global & {
-    prisma?: PrismaClient
+const globalForPrisma = globalThis as unknown as {
+    prisma?: PrismaClient;
 };
 
-export const db = globalForPrisma.prisma ?? new PrismaClient();
+export const db = globalForPrisma.prisma || new PrismaClient();
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = db;
+
+
