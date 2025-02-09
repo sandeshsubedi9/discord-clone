@@ -3,21 +3,22 @@ import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 
 interface ServerIdPageProps {
-  params:{
-    serverId:string
-  }
+  // Define params as a promise to meet Next.js's PageProps constraint
+  params: Promise<{ serverId: string }>;
 }
 
-const ServerIdPage = async ({params}:ServerIdPageProps) => {
-  const profile = await currentProfile()
+const ServerIdPage = async ({ params }: ServerIdPageProps) => {
+  // Await params to extract the actual serverId value
+  const { serverId } = await params;
+  const profile = await currentProfile();
   
-  if(!profile) {
-    return redirect('/sign-in')
+  if (!profile) {
+    return redirect('/sign-in');
   }
 
   const server = await db.server.findUnique({
     where: {
-      id: params.serverId,
+      id: serverId,
       members: {
         some: {
           profileId: profile.id
@@ -27,22 +28,22 @@ const ServerIdPage = async ({params}:ServerIdPageProps) => {
     include: {
       channels: {
         where: {
-          name:"general"
+          name: "general"
         },
         orderBy: {
-          createdAt:"asc"
+          createdAt: "asc"
         }
       }
     }
-  })
+  });
 
-  const initialChannel = server?.channels[0]
+  const initialChannel = server?.channels[0];
 
-  if(initialChannel?.name !== "general") {
-    return null
+  if (initialChannel?.name !== "general") {
+    return null;
   }
 
-  return (redirect(`/servers/${params.serverId}/channels/${initialChannel?.id}`))
+  return redirect(`/servers/${serverId}/channels/${initialChannel?.id}`);
 }
 
-export default ServerIdPage
+export default ServerIdPage;
