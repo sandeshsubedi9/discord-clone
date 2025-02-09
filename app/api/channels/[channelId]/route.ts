@@ -123,13 +123,13 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { MemberRole } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { ParsedUrlQuery } from "querystring";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: ParsedUrlQuery }
+  { params }: { params: Promise<Record<string, string>> }
 ): Promise<Response> {
-  const channelId = params.channelId as string;
+  const resolvedParams = await params;
+  const channelId = resolvedParams.channelId;
   const { searchParams } = new URL(req.url);
   const serverId = searchParams.get("serverId");
 
@@ -175,9 +175,10 @@ export async function DELETE(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: ParsedUrlQuery }
+  { params }: { params: Promise<Record<string, string>> }
 ): Promise<Response> {
-  const channelId = params.channelId as string;
+  const resolvedParams = await params;
+  const channelId = resolvedParams.channelId;
   const { name, type } = await req.json();
   const { searchParams } = new URL(req.url);
   const serverId = searchParams.get("serverId");
