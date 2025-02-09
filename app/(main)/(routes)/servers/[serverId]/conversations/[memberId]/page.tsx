@@ -99,7 +99,6 @@
 
 
 
-
 import ChatHeader from '@/components/chat/chat-header'
 import ChatInput from '@/components/chat/chat-input'
 import ChatMessages from '@/components/chat/chat-messages'
@@ -111,14 +110,15 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 interface MemberIdPageProps {
-  // Declare params as a Promise
+  // Both params and searchParams are promises.
   params: Promise<{ memberId: string; serverId: string }>;
-  searchParams: { video?: boolean };
+  searchParams: Promise<{ video?: boolean }>;
 }
 
 const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
-  // Await params to get actual values
+  // Await both params and searchParams to extract the actual values.
   const { memberId, serverId } = await params;
+  const search = await searchParams;
 
   const profile = await currentProfile();
 
@@ -158,7 +158,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
         type="conversation"
       />
       
-      {searchParams.video ? (
+      {search.video ? (
         <MediaRoom chatId={conversation.id} video={true} audio={true} />
       ) : (
         <>
@@ -187,5 +187,6 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
 };
 
 export default MemberIdPage;
+
 
 
