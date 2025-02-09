@@ -59,64 +59,62 @@
 // export default InviteCodePage
 
 
-
 import { currentProfile } from '@/lib/current-profile'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 
-interface inviteCodePageProps {
-    params: {
-        inviteCode: string
-    }
+// Allow params to be a plain object or a promise thereof.
+interface InviteCodePageProps {
+  params: { inviteCode: string } | Promise<{ inviteCode: string }>;
 }
 
-const InviteCodePage = async ({
-    params
-}: inviteCodePageProps) => {
-    const { inviteCode } = params;
-    const profile = await currentProfile()
+const InviteCodePage = async ({ params }: InviteCodePageProps) => {
+  // Await in case params is a promise.
+  const { inviteCode } = await params;
 
-    if (!profile) {
-        return redirect('/sign-in')
-    }
+  const profile = await currentProfile();
 
-    if (!inviteCode) {
-        return redirect('/')
-    }
+  if (!profile) {
+    return redirect('/sign-in');
+  }
 
-    const existingServer = await db.server.findFirst({
-        where: {
-            inviteCode: inviteCode,
-            members: {
-                some: {
-                    profileId: profile.id
-                }
-            }
-        }
-    })
+  if (!inviteCode) {
+    return redirect('/');
+  }
 
-    if (existingServer) {
-        return redirect(`/servers/${existingServer.id}`)
-    }
-
-    const server = await db.server.update({
-        where: {
-            inviteCode: inviteCode
+  const existingServer = await db.server.findFirst({
+    where: {
+      inviteCode,
+      members: {
+        some: {
+          profileId: profile.id,
         },
-        data: {
-            members: {
-                create: {
-                    profileId: profile.id
-                }
-            }
-        }
-    })
+      },
+    },
+  });
 
-    if(server) {
-        return redirect(`/servers/${server.id}`)
-    }
-    
-    return null
-}
+  if (existingServer) {
+    return redirect(`/servers/${existingServer.id}`);
+  }
 
-export default InviteCodePage
+  const server = await db.server.update({
+    where: {
+      inviteCode,
+    },
+    data: {
+      members: {
+        create: {
+          profileId: profile.id,
+        },
+      },
+    },
+  });
+
+  if (server) {
+    return redirect(`/servers/${server.id}`);
+  }
+
+  return null;
+};
+
+export default InviteCodePage;
