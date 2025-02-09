@@ -7,7 +7,7 @@ import axios from 'axios'
 import qs from 'query-string'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem } from '../ui/form'
-import { Plus, Send } from 'lucide-react'
+import { Plus, SendHorizonal } from 'lucide-react'
 import { Input } from '../ui/input'
 import { useModal } from '@/hooks/use-modal-store'
 import EmojiPicker from '../emoji-picker'
@@ -91,7 +91,7 @@ const ChatInput = ({
                                             className={`transition ${!messageContent.trim() || isLoading ? "text-zinc-400" : "dark:text-zinc-200 text-zinc-600"
                                                 }`}
                                         >
-                                            <Send />
+                                            <SendHorizonal />
                                         </button>
                                     </div>
                                 </div>
