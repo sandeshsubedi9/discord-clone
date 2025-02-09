@@ -63,13 +63,13 @@ import { currentProfile } from '@/lib/current-profile'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 
-// Allow params to be a plain object or a promise thereof.
 interface InviteCodePageProps {
-  params: { inviteCode: string } | Promise<{ inviteCode: string }>;
+  // Declare params as a promise of an object with inviteCode
+  params: Promise<{ inviteCode: string }>;
 }
 
-const InviteCodePage = async ({ params }: InviteCodePageProps) => {
-  // Await in case params is a promise.
+export default async function InviteCodePage({ params }: InviteCodePageProps) {
+  // Await the promise to get the actual params object
   const { inviteCode } = await params;
 
   const profile = await currentProfile();
@@ -115,6 +115,4 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
   }
 
   return null;
-};
-
-export default InviteCodePage;
+}
