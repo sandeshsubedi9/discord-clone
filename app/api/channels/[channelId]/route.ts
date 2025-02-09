@@ -124,7 +124,10 @@ import { db } from "@/lib/db";
 import { MemberRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-export async function DELETE(req: Request, context: { params: { channelId: string } }) {
+export async function DELETE(
+  req: Request,
+  context: { params: Record<string, string> }
+): Promise<Response> {
   try {
     const { channelId } = context.params;
     const { searchParams } = new URL(req.url);
@@ -174,7 +177,10 @@ export async function DELETE(req: Request, context: { params: { channelId: strin
   }
 }
 
-export async function PATCH(req: Request, context: { params: { channelId: string } }) {
+export async function PATCH(
+  req: Request,
+  context: { params: Record<string, string> }
+): Promise<Response> {
   try {
     const { channelId } = context.params;
     const { name, type } = await req.json();
@@ -234,3 +240,4 @@ export async function PATCH(req: Request, context: { params: { channelId: string
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
