@@ -124,9 +124,12 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-export async function DELETE(req: Request, context: { params: { memberId: string } }) {
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ memberId: string }> }
+) {
   try {
-    const { memberId } = context.params;
+    const { memberId } = await params;
     const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
     const serverId = searchParams.get("serverId");
@@ -146,28 +149,28 @@ export async function DELETE(req: Request, context: { params: { memberId: string
     const server = await db.server.update({
       where: {
         id: serverId,
-        profileId: profile.id
+        profileId: profile.id,
       },
       data: {
         members: {
           deleteMany: {
             id: memberId,
             profileId: {
-              not: profile.id
-            }
-          }
-        }
+              not: profile.id,
+            },
+          },
+        },
       },
       include: {
         members: {
           include: {
-            profile: true
+            profile: true,
           },
           orderBy: {
-            role: "asc"
-          }
-        }
-      }
+            role: "asc",
+          },
+        },
+      },
     });
 
     return NextResponse.json(server);
@@ -177,9 +180,12 @@ export async function DELETE(req: Request, context: { params: { memberId: string
   }
 }
 
-export async function PATCH(req: Request, context: { params: { memberId: string } }) {
+export async function PATCH(
+  req: Request,
+  { params }: { params: Promise<{ memberId: string }> }
+) {
   try {
-    const { memberId } = context.params;
+    const { memberId } = await params;
     const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
     const { role } = await req.json();
@@ -200,7 +206,7 @@ export async function PATCH(req: Request, context: { params: { memberId: string 
     const server = await db.server.update({
       where: {
         id: serverId,
-        profileId: profile.id
+        profileId: profile.id,
       },
       data: {
         members: {
@@ -208,25 +214,25 @@ export async function PATCH(req: Request, context: { params: { memberId: string 
             where: {
               id: memberId,
               profileId: {
-                not: profile.id
-              }
+                not: profile.id,
+              },
             },
             data: {
-              role
-            }
-          }
-        }
+              role,
+            },
+          },
+        },
       },
       include: {
         members: {
           include: {
-            profile: true
+            profile: true,
           },
           orderBy: {
-            role: "asc"
-          }
-        }
-      }
+            role: "asc",
+          },
+        },
+      },
     });
 
     return NextResponse.json(server);
