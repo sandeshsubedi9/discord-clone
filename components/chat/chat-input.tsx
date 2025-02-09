@@ -82,13 +82,16 @@ const ChatInput = ({
                                         {...field}
                                     />
                                     <div className='flex gap-3 absolute top-7 right-8'>
-
                                         <EmojiPicker
                                             onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)}
                                         />
-                                        <button type='submit' disabled={!messageContent.trim() || isLoading}>
-                                            <Send className={`transition  ${messageContent.trim() ? "dark:text-zinc-200 text-zinc-600" : "text-zinc-400"
-                                                }`} />
+                                        <button
+                                            type="submit"
+                                            disabled={!messageContent.trim() || isLoading}
+                                            className={`transition ${!messageContent.trim() || isLoading ? "text-zinc-400" : "dark:text-zinc-200 text-zinc-600"
+                                                }`}
+                                        >
+                                            <Send />
                                         </button>
                                     </div>
                                 </div>
