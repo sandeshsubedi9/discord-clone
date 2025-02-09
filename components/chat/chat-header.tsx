@@ -33,9 +33,7 @@ const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeaderProps) => {
                 {type === "conversation" && (
                     <ChatVideoButton/>
                 )}
-                <div className="w-52">
                 <SocketIndicator/>
-                </div>
             </div>
         </div>
     )
