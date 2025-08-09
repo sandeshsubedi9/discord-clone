@@ -36,7 +36,7 @@ export const useChatScroll = ({chatRef, bottomRef, shouldLoadMore, loadMore, cou
         const shouldAutoScroll = () => {
             if(!hasInitialized && bottomDiv) {
                 setHasInitialized(true)
-                return true 
+                return true
             }
 
             if(!topDiv) {

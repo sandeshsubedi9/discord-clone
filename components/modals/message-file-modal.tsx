@@ -102,7 +102,6 @@ const MessageFileModal = () => {
                                 Send
                             </Button>
                         </DialogFooter>
-
                     </form>
                 </Form>
             </DialogContent>
