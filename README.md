@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Discord Clone 🎧💬
 
-## Getting Started
+A full-stack real-time chat application inspired by **Discord**, featuring servers, text channels, voice/video calls, role-based permissions, direct messages, image sharing, and emoji support.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Live Demo
+(ctlr + click to open it in new tab) 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+https://discord-clone-80eq.onrender.com
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📌 Features
 
-## Learn More
+- **Server Management**
+  - Create, delete, and manage servers
+  - Role-based permissions (Admin, Moderator, Member)
+  - Invite system
+  - Remove members, promote/demote roles
 
-To learn more about Next.js, take a look at the following resources:
+- **Channels**
+  - Multiple text and voice channels within a server
+  - Direct one-on-one private messages
+  - Real-time updates via **Socket.IO**
+  - Voice & video chat via **LiveKit**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Messaging**
+  - Infinite scroll pagination (10 messages at a time) with caching via **React Query**
+  - Send images (stored via **Cloudinary**)
+  - Emoji picker with custom emoji support
+  - Light & dark mode
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Authentication**
+  - Secure login/signup with **Clerk**
 
-## Deploy on Vercel
+- **Real-Time Communication**
+  - Instant updates without refresh
+  - Voice and video calls in channels or private chats
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Tech Stack
+
+**Frontend:**
+- [Next.js](https://nextjs.org/)  
+- [React](https://react.dev/)  
+- [React Query](https://tanstack.com/query/latest)  
+- [Socket.IO Client](https://socket.io/)  
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/) – UI components library  
+
+**Backend:**
+- [Next.js API Routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes)  
+- [Socket.IO Server](https://socket.io/)  
+- [Prisma](https://www.prisma.io/)  
+- [Neon Database](https://neon.tech/)  
+
+**Other Services:**
+- [Clerk](https://clerk.dev/) – Authentication  
+- [LiveKit](https://livekit.io/) – Audio/Video calls  
+- [Cloudinary](https://cloudinary.com/) – Image storage  
+
+---
+
