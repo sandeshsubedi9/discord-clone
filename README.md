@@ -1,6 +1,6 @@
-# Discord Clone 🎧💬
+# Team Chat Application 🎧💬
 
-A full-stack real-time chat application inspired by **Discord**, featuring servers, text channels, voice/video calls, role-based permissions, direct messages, image sharing, and emoji support.
+A full-stack real-time Team Chat application inspired by **Discord**, featuring servers, text channels, voice/video calls, role-based permissions, direct messages, image sharing, and emoji support.
 
 ---
 
